@@ -1,20 +1,23 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() {
+int main()
+{
   int n;
   cin >> n;
-  int inf = n + 1;
-  vector<int> dp(n + 1, inf);
-  dp[0] = 0;
+  vector<int> dp(n + 10, 1e7);
+  for (int i = 0; i <= 9; i++)
+  {
+    dp[i] = 1;
+  }
 
-  for (int i = 0; i <= n; i++) {
-    for (char c : to_string(i)) {
-      if (c - '0' >= 0) {
-        dp[i] = min(dp[i], dp[i - c + '0'] + 1);
-      }
+  for (int i = 10; i <= n; i++)
+  {
+    for (char c : to_string(i))
+    {
+      dp[i] = min(dp[i], 1 + dp[i - (c - '0')]);
     }
   }
 
-  cout << dp[n] << endl;
+  cout << dp[n] << "\n";
 }
