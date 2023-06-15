@@ -1,28 +1,34 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() {
-  int mod = 1e9+7;
-  int n, target;
-  cin >> n >> target;
-  vector<int> c(n);
+int main()
+{
+  int n, x;
+  cin >> n >> x;
+  vector<long> coins(n);
+  for (auto &coin : coins)
+    cin >> coin;
 
-  for(int&v : c) {
-    cin >> v;
+  vector<long> dp(x + 1, 0);
+  int MOD = 1e9 + 7;
+  for (auto &coin : coins)
+  {
+    if (coin <= x)
+    {
+      dp[coin] = 1;
+    }
   }
 
-  vector<int> dp(target + 1);
-  dp[0] = 1;
-
-  for(int i = 1; i <= target; i++) {
-    for(int j = 0; j < n; j++) {
-      if(i -c[j] >= 0) {
-        (dp[i] += dp[i - c[j]]) %= mod;
+  for (int i = 0; i <= x; i++)
+  {
+    for (int j = 0; j < n; j++)
+    {
+      if (i - coins[j] >= 0)
+      {
+        (dp[i] += dp[i - coins[j]]) %= MOD;
       }
     }
   }
 
-  cout << dp[target] << endl;
-
-
+  cout << dp[x] << "\n";
 }
